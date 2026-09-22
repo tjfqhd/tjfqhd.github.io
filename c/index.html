@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bottle Flip 도전장</title>
+<meta property="og:title" content="Bottle Flip 도전장 — 같은 조건으로 넘어봐"><meta property="og:image" content="https://tjfqhd.github.io/img/ko_1_title.jpg">
+<style>
+body{margin:0;font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;background:linear-gradient(#cfeefc,#eaf7fc 60%,#c9a66b);color:#14323f;min-height:100vh}
+.wrap{max-width:420px;margin:0 auto;padding:36px 20px 48px;text-align:center}
+.card{background:#fff;border-radius:22px;padding:26px 20px;box-shadow:0 10px 30px rgba(20,50,63,.18)}
+h1{font-size:22px;margin:0 0 6px}.sub{color:#3e5e6c;font-size:14px;margin:0 0 18px}
+.score{font-size:44px;font-weight:900;color:#ff6b57;margin:6px 0}.meta{color:#3e5e6c;font-size:14px;margin-bottom:22px}
+.btn{display:block;padding:15px;border-radius:16px;font-weight:800;text-decoration:none;font-size:17px;margin:10px 0}
+.pri{background:#ff6b57;color:#fff}.sec{background:#2e9ccb;color:#fff}
+.code{margin-top:20px;font-size:12px;color:#3e5e6c}.code b{display:block;font-size:16px;color:#14323f;margin-top:6px;word-break:break-all;user-select:all}
+.en{font-size:12px;color:#8a9aa3;margin-top:22px}
+</style></head><body><div class="wrap"><div class="card">
+<h1>🍼 도전장이 도착했어요</h1>
+<p class="sub" id="sub">같은 바람·같은 미션으로 넘어보세요</p>
+<div class="score" id="score">—</div>
+<div class="meta" id="meta"></div>
+<a class="btn pri" id="open" href="#">앱에서 도전 받기</a>
+<a class="btn sec" href="https://apps.apple.com/app/id6806706924">App Store에서 받기 (무료)</a>
+<div class="code">앱을 새로 설치했다면 설정 ▸ <b>도전 코드 입력</b>에 이 코드를 넣으세요<b id="code"></b></div>
+<p class="en">A friend challenged you in Bottle Flip: Water Challenge. Open in the app, or install it and enter the code above under Settings ▸ Enter challenge code.</p>
+</div></div>
+<script>
+(function(){
+  var raw = decodeURIComponent((location.hash||'').replace(/^#/,''));
+  var p = raw.split('-');
+  var ok = p.length>=3 && /^[0-9A-Za-z]+$/.test(p[0]) && /^\d+$/.test(p[1]) && /^\d+$/.test(p[2]);
+  var name = ok && p[3] ? p[3] : 'Flipper';
+  if (ok) {
+    document.getElementById('sub').textContent = name + '님이 같은 조건 ' + p[1] + '번 던지기로 도전장을 보냈어요';
+    document.getElementById('score').textContent = Number(p[2]).toLocaleString() + '점';
+    document.getElementById('meta').textContent = '이 점수를 넘기면 승리 · ' + p[1] + '번 던지기';
+    document.getElementById('code').textContent = raw;
+    var scheme = 'bottleflip://c/' + encodeURIComponent(raw);
+    var a = document.getElementById('open'); a.href = scheme;
+    setTimeout(function(){ location.href = scheme; }, 400);
+  } else {
+    document.getElementById('sub').textContent = '도전 코드가 없거나 잘못됐어요';
+    document.getElementById('open').style.display = 'none';
+  }
+})();
+</script></body></html>
